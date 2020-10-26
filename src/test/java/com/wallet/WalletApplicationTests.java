@@ -1,4 +1,4 @@
-package com.wallet.wallet;
+package com.wallet;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
