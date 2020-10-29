@@ -27,6 +27,10 @@ public class UserController {
     public ResponseEntity<Response<UserDTO>> create(@Valid @RequestBody UserDTO dto, BindingResult result){
         Response<UserDTO> response = new Response<>();
 
+        if (result.hasErrors()){
+            result.getAllErrors().forEach(e -> response.getErrors().add(e.getDefaultMessage()));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
         User user = service.save(convertDtoToEntity(dto));
         response.setData(this.convertEntityToDto(user));
 
@@ -35,6 +39,7 @@ public class UserController {
 
     private User convertDtoToEntity(UserDTO dto) {
         User u = new User();
+        u.setId(dto.getId());
         u.setName(dto.getName());
         u.setEmail(dto.getEmail());
         u.setPassword(dto.getPassword());
@@ -44,6 +49,7 @@ public class UserController {
 
     private UserDTO convertEntityToDto(User u) {
         UserDTO dto = new UserDTO();
+        dto.setId(u.getId());
         dto.setName(u.getName());
         dto.setEmail(u.getEmail());
         dto.setPassword(u.getPassword());

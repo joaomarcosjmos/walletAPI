@@ -15,7 +15,7 @@ public class UserDTO {
     @Length(min = 3, max = 50, message = "O nome  deve conter entre 3 e 50 caracteres ")
     private String name;
 
-    @Email(message="E-mail inválido")
+    @Email(message="E-mail invalido")
     private String email;
 
     @NotNull

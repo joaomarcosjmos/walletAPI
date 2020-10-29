@@ -17,9 +17,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -28,7 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test") //Teste de requisições e conexão com a camada de serviço
 public class UserControllerTest {
 
-    private static final String NOME = "João Marcos";
+    private  static final Long ID = 1L;
+    private static final String NAME = "João Marcos";
     private static final String EMAIL = "joao@test.com";
     private static final String PASSWORD = "123456";
     private static final String URL = "/user";
@@ -43,27 +45,46 @@ public class UserControllerTest {
     public void testSave() throws Exception {
         BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(getMockUser());
 
-        mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayload())
+        mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayload(ID, NAME, EMAIL, PASSWORD))
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isCreated());
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.data.id").value(ID))
+        .andExpect(jsonPath("$.data.email").value(EMAIL))
+        .andExpect(jsonPath("$.data.name").value(NAME))
+        .andExpect(jsonPath("$.data.password").value(PASSWORD));
+    }
 
+    /**
+     * Testa a validação dos atributos
+     * @throws JsonProcessingException
+     * @throws Exception
+     */
+    @Test
+    public void testSaveInvalidUser() throws JsonProcessingException , Exception{
+        mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayload(ID, "email", NAME, PASSWORD))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors[0]").value("E-mail invalido"));
     }
 
     public User getMockUser(){
         User u = new User();
-        u.setName(NOME);
+        u.setId(ID);
+        u.setName(NAME);
         u.setEmail(EMAIL);
         u.setPassword(PASSWORD);
 
         return u;
     }
 
-    public String getJsonPayload() throws JsonProcessingException {
+    public String getJsonPayload(Long id, String email, String name, String password) throws JsonProcessingException {
         UserDTO dto = new UserDTO();
-        dto.setEmail(EMAIL);
-        dto.setName(NOME);
-        dto.setPassword(PASSWORD);
+        dto.setId(id);
+        dto.setEmail(email);
+        dto.setName(name);
+        dto.setPassword(password);
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(dto);
