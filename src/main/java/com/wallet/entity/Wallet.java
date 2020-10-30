@@ -3,26 +3,23 @@ package com.wallet.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-
+import java.math.BigDecimal;
 
 @Entity
 @Data
-@Table(name = "users")
-public class User implements Serializable {
-
+public class Wallet implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
+    @NotNull
     private String name;
 
-    @Column(nullable = false)
-    private String email;
+    @NotNull
+    private BigDecimal value;
+
 
 }
