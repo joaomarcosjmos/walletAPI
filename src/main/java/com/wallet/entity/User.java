@@ -1,8 +1,10 @@
 package com.wallet.entity;
 
+import com.wallet.util.enums.RoleEnum;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -24,5 +26,9 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     private String email;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
 
 }
