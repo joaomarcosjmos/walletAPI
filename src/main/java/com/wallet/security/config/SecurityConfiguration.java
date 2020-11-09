@@ -28,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Autowired //Injetado para alterar e melhorar msg de retorno
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
+    @Qualifier("jwtUserDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 

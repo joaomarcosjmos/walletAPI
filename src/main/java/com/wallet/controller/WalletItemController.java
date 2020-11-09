@@ -65,12 +65,12 @@ public class WalletItemController {
         Response<Page<WalletItemDTO>> response = new Response<>();
 
 
-//        Optional<UserWallet> uw = userWalletService.findByUsersIdAndWalletId(Util.getAuthenticatedUserId(), wallet);
-//
-//        if (!uw.isPresent()) {
-//            response.getErrors().add("Você não tem acesso a essa carteira");
-//            return ResponseEntity.badRequest().body(response);
-//        }
+        Optional<UserWallet> uw = userWalletService.findByUsersIdAndWalletId(Util.getAuthenticatedUserId(), wallet);
+
+        if (!uw.isPresent()) {
+            response.getErrors().add("Você não tem acesso a essa carteira");
+            return ResponseEntity.badRequest().body(response);
+        }
 
         Page<WalletItem> items = service.findBetweenDates(wallet, startDate, endDate, page);
         Page<WalletItemDTO> dto = items.map(i -> this.convertEntityToDto(i));

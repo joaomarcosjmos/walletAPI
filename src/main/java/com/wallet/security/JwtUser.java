@@ -7,8 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class JwtUser implements UserDetails {
 
-    private static final long serialVersionUID = -268046329085485932L;
-
     private Long id;
     private String username;
     private String password;
