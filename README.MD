@@ -18,7 +18,7 @@ Esse projeto possui as seguintes características:
 Certifique-se de ter o Maven instalado e adicionado ao PATH de seu sistema operacional, assim como o Git, crie um banco de dados no postgres e altere o arquivo application.properties informando as credenciais para a aplicação acessar a base de dados, não se preocupe com a criação das tabelas, o flyway se encarregará dessa função.
 
 ```
-git clone https://github.com/vitoralves/walletAPI
+git clone https://github.com/joaomarcosjmos/walletAPI
 cd walletAPI
 mvn spring-boot:run
 Acesse os endpoints através da url http://localhost:8080
