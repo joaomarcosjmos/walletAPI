@@ -3,7 +3,6 @@ dist: trusty
 language: java
 jdk:
   - openjdk11
-  - openjdk-ea
 before_install:
   - export TZ=Brazil/East
 deploy:
