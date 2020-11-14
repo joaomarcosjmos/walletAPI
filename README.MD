@@ -1,4 +1,4 @@
-![Build Status](https://travis-ci.org/github/joaomarcosjmos/walletAPI.svg?branch=master)](https://travis-ci.org/github/joaomarcosjmos/walletAPI)
+[![Build Status](https://travis-ci.org/github/joaomarcosjmos/walletAPI.svg?branch=master)](https://travis-ci.org/github/joaomarcosjmos/walletAPI)
 
 # Wallet API
 Projeto criado para servir de referência ao estudo de criação de API RESTfull com Spring Boot utilizando TDD, CI e CD , a principal funcionalidade dessa API é permitir o cadastro de usuários para manipular de maneira individual uma carteira, inserindo, alterando, removendo ou adicionado itens.
