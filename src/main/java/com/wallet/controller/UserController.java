@@ -22,7 +22,6 @@ import javax.validation.Valid;
 @RequestMapping("user")
 public class UserController {
 
-
     @Autowired
     private UserService service;
 
