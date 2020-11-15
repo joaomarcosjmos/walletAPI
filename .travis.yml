@@ -4,6 +4,7 @@ language: java
 jdk:
   - openjdk11
 before_install:
+  - chmod +x mvnw
   - export TZ=Brazil/East
 deploy:
   provider: heroku
